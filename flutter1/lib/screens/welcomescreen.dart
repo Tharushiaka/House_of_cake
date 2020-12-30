@@ -12,7 +12,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [Colors.pink[200], Colors.pink[100], Colors.pink[100]],
+          colors: [Colors.pink[100], Colors.pink[50], Colors.white],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
         )),
