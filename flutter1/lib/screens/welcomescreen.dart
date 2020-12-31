@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter1/screens/signupscreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -82,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     child: Text(
-                      'Login',
+                      'LOGIN',
                       style: TextStyle(color: Colors.white, fontSize: 22),
                     ),
                   ),
@@ -118,12 +119,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpScreen()));
+                    },
+                    child: Text(
+                      'SKIP',
+                      style: TextStyle(
+                          color: Colors.pinkAccent,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpScreen()));
+                    },
                     child: Text(
                       'ADMIN LOGIN',
                       style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.pink,
                           fontWeight: FontWeight.w900,
-                          fontSize: 22,
+                          fontSize: 18,
                           decoration: TextDecoration.underline),
                     ),
                   ),
