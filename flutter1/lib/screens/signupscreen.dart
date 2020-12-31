@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter1/screens/customtetfield.dart';
+import 'package:flutter1/screens/dialogscreens/error.dart';
+import 'package:flutter1/screens/dialogscreens/loading.dart';
 import 'package:flutter1/screens/loginscreeen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -79,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   CustumTextField(
                     controller: _emailaddress,
-                    data: Icons.person,
+                    data: Icons.email,
                     hintText: 'Email Address',
                     isObsecure: false,
                   ),
@@ -88,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   CustumTextField(
                     controller: _contactnumber,
-                    data: Icons.person,
+                    data: Icons.phone,
                     hintText: 'Phone Number',
                     isObsecure: false,
                   ),
@@ -122,7 +126,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   minWidth: MediaQuery.of(context).size.width,
                   height: 40,
                   child: RaisedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        checkErrors();
+                      },
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
@@ -168,5 +174,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ]))),
     );
+  }
+
+  Future<void> checkErrors() async {
+    String value;
+    Pattern pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    print(value);
+
+    if (_firstname.text == null ||
+        _lastname.text == null ||
+        _emailaddress.text == null ||
+        _password.text == null ||
+        _confirmpassword.text == null) {
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorAlert(
+              message: 'Please fully complete the form before proceed',
+            );
+          });
+    } else if (_password.text != _confirmpassword.text) {
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorAlert(
+              message: 'Password does not match',
+            );
+          });
+    } else if (!regExp.hasMatch(value)) {
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorAlert(
+              message:
+                  '* should contain at least one upper case \n * should contain at least one lower case \n * should contain at least one digit \n * should contain at least one Special character',
+            );
+          });
+    } else {
+      upLoadAndSave();
+    }
+  }
+
+  upLoadAndSave() async {
+    showDialog(
+        context: context,
+        builder: (c) {
+          return LoadingAlert();
+        });
   }
 }
